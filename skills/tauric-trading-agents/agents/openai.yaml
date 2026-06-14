@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauric Trading Agents"
+  short_description: "TradingAgents, Trading-R1, and smart-money signals."
+  default_prompt: "Use $tauric-trading-agents to analyze this stock with four analyst views, smart-money monitors, facts-grounded reasoning, and a risk-adjusted Trading-R1 conclusion."
+
+policy:
+  allow_implicit_invocation: true
