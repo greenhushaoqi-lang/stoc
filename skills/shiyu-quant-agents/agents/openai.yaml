@@ -1,0 +1,7 @@
+interface:
+  display_name: "Shiyu Quant Agents"
+  short_description: "QuantaAlpha, Kronos, WindFM, and stochastic quant workflows."
+  default_prompt: "Use $shiyu-quant-agents to design factor ideas, time-series forecasts, and validation plans from shiyu-coder quant frameworks."
+
+policy:
+  allow_implicit_invocation: true

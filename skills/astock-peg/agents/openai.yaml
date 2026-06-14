@@ -1,0 +1,7 @@
+interface:
+  display_name: "Astock PEG"
+  short_description: "A-share Peter Lynch PEG valuation."
+  default_prompt: "Use $astock-peg to evaluate this A-share with PEG valuation and Chinese-market adjustments."
+
+policy:
+  allow_implicit_invocation: true

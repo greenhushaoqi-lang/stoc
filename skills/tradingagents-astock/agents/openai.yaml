@@ -1,0 +1,7 @@
+interface:
+  display_name: "TradingAgents Astock"
+  short_description: "A-share 7-analyst multi-agent research."
+  default_prompt: "Use $tradingagents-astock to analyze this A-share with 7 analysts, bull/bear debate, risk debate, and A股 trading constraints."
+
+policy:
+  allow_implicit_invocation: true
