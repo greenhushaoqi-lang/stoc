@@ -1,0 +1,7 @@
+interface:
+  display_name: "TradingAgents CN"
+  short_description: "Chinese multi-agent stock analysis."
+  default_prompt: "Use $tradingagents-cn to analyze this A-share/HK/US stock in Chinese with localized multi-agent research."
+
+policy:
+  allow_implicit_invocation: true

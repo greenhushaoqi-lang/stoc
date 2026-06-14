@@ -1,0 +1,7 @@
+interface:
+  display_name: "Fincept Terminal"
+  short_description: "Terminal-style market research workflow."
+  default_prompt: "Use $fincept-terminal to build a terminal-style research brief for this market or portfolio question."
+
+policy:
+  allow_implicit_invocation: true

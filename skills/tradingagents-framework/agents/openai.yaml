@@ -1,0 +1,7 @@
+interface:
+  display_name: "TradingAgents Framework"
+  short_description: "Multi-agent stock research workflow."
+  default_prompt: "Use $tradingagents-framework to analyze this stock with analyst roles, debate, trader synthesis, and risk review."
+
+policy:
+  allow_implicit_invocation: true

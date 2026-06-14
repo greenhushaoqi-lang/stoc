@@ -1,0 +1,7 @@
+interface:
+  display_name: "News Trend Radar"
+  short_description: "Live Buzzing, NewsNow, and TopHub narrative radar."
+  default_prompt: "Use $news-trend-radar to scan live global and Chinese news trends, deduplicate narratives, and map them to market catalysts."
+
+policy:
+  allow_implicit_invocation: true

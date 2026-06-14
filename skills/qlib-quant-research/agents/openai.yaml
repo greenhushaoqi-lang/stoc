@@ -1,0 +1,7 @@
+interface:
+  display_name: "Qlib Quant Research"
+  short_description: "AI quant research and backtest workflow."
+  default_prompt: "Use $qlib-quant-research to design a Qlib-style alpha research and backtest workflow."
+
+policy:
+  allow_implicit_invocation: true
