@@ -1,0 +1,4 @@
+interface:
+  display_name: "Livermoerr X Radar"
+  short_description: "Daily X-account learning radar for @livermoerr."
+  default_prompt: "Use $livermoerr-x-radar to update @livermoerr's X posts and map the latest themes to market narratives."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Six X Market Radar"
+  short_description: "Daily learning radar for six Chinese market X accounts."
+  default_prompt: "Use $six-x-market-radar to update the six tracked X accounts and map their latest narratives to stocks and sectors."

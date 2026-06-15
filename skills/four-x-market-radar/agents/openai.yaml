@@ -1,0 +1,4 @@
+interface:
+  display_name: "Four X Market Radar"
+  short_description: "Daily learning radar for four Chinese market X accounts."
+  default_prompt: "Use $four-x-market-radar to update the four tracked X accounts and map their latest narratives to stocks and sectors."

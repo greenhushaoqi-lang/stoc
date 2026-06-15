@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nine X Market Radar"
+  short_description: "Daily learning radar for nine Chinese market X accounts."
+  default_prompt: "Use $nine-x-market-radar to update the nine tracked X accounts and map their latest narratives to stocks and sectors."
