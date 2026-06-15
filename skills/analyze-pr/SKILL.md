@@ -1,3 +1,8 @@
+---
+name: analyze-pr
+description: Review a GitHub Pull Request for the ZhuLinsen/daily_stock_analysis repo - assess necessity, description completeness, CI/diff verification evidence, compatibility/risk, and whether it can be merged, then write a review doc. Use when asked to analyze or review a GitHub PR, run /analyze-pr, or evaluate 是否可直接合入.
+---
+
 # Analyze PR
 
 分析 GitHub Pull Request，评估必要性、描述完整性、验证证据、主要风险与是否可直接合入。

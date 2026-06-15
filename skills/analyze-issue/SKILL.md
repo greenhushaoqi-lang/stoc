@@ -1,3 +1,8 @@
+---
+name: analyze-issue
+description: Triage a GitHub issue for the ZhuLinsen/daily_stock_analysis repo - judge validity, priority, repo-responsibility scope, difficulty, and recommended action, then write an analysis doc. Use when asked to analyze or triage a GitHub issue, run /analyze-issue, or assess whether an issue 是否成立/优先级/是否好解决.
+---
+
 # Analyze Issue
 
 分析 GitHub Issue，判断其真实性、优先级、仓库责任边界与建议动作。
