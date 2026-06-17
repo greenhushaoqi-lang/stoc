@@ -1,3 +1,8 @@
+---
+name: fix-issue
+description: Implement a fix for a GitHub issue in the ZhuLinsen/daily_stock_analysis repo based on prior issue analysis, then add verification, risk, and rollback notes per repo rules. Use when asked to fix or resolve a GitHub issue, run /fix-issue, or implement a bug fix after /analyze-issue.
+---
+
 # Fix Issue
 
 基于 issue 分析结果实现修复，并按仓库规则补齐验证、风险与回滚说明。
