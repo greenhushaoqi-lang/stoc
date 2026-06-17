@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zhanru AStock X Radar"
+  short_description: "Daily learning radar for selected Chinese market X accounts."
+  default_prompt: "Use $zhanru-astock-x-radar to update the tracked X accounts and map their latest narratives to stocks, sectors, catalysts, and risks."
