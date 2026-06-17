@@ -77,7 +77,7 @@ def now_utc() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
 
 
-def http_get(url: str, headers: dict[str, str] | None = None, timeout: int = 20) -> bytes:
+def http_get(url: str, headers: dict[str, str] | None = None, timeout: int = 12) -> bytes:
     req = urllib.request.Request(
         url,
         headers={
@@ -189,10 +189,10 @@ def fetch_x_api_handle(handle: str, limit: int) -> tuple[list[dict[str, Any]], s
 
 def fetch_rss_handle(handle: str, limit: int) -> tuple[list[dict[str, Any]], list[str]]:
     urls = [
-        f"https://rsshub.app/twitter/user/{handle}",
         f"https://nitter.net/{handle}/rss",
         f"https://xcancel.com/{handle}/rss",
         f"https://nitter.poast.org/{handle}/rss",
+        f"https://rsshub.app/twitter/user/{handle}",
     ]
     errors: list[str] = []
     for url in urls:
@@ -256,40 +256,17 @@ def fetch_all(limit: int) -> tuple[list[dict[str, Any]], list[str]]:
     return dedupe(all_rows), status
 
 
-def fetch_stock_names(codes: list[str]) -> dict[str, str]:
-    unique_codes = sorted({code for code in codes if re.fullmatch(r"\d{6}", code)})
-    if not unique_codes:
-        return {}
-    symbols = [
-        f"{'sh' if code.startswith(('5', '6', '9')) else 'bj' if code.startswith(('4', '8')) else 'sz'}{code}"
-        for code in unique_codes
-    ]
-    url = f"https://qt.gtimg.cn/q={','.join(symbols)}"
-    try:
-        text = http_get(url, headers={"Referer": "https://gu.qq.com/"}, timeout=10).decode("gbk", errors="ignore")
-    except Exception:
-        return {}
-    names: dict[str, str] = {}
-    for code, name in re.findall(r'v_[a-z]{2}(\d{6})="[^~]*~([^~]+)~', text):
-        if name.strip():
-            names[code] = name.strip()
-    return names
-
-
 def extract_terms(rows: list[dict[str, Any]]) -> dict[str, Any]:
     text = "\n".join(row.get("text", "") for row in rows)
     cashtags = sorted(set(re.findall(r"\$[A-Za-z][A-Za-z0-9._-]{0,12}", text)), key=str.upper)
     hashtags = sorted(set(re.findall(r"#[\w\u4e00-\u9fff-]+", text)), key=str.upper)
     stock_codes = sorted(set(re.findall(r"(?<!\d)(?:00|30|60|68|83|87)\d{4}(?!\d)", text)))
-    stock_name_map = fetch_stock_names(stock_codes)
-    stock_names = [stock_name_map.get(code, code) for code in stock_codes]
     lower = text.lower()
     keywords = [kw for kw in THEME_KEYWORDS if kw.lower() in lower]
     return {
         "cashtags": cashtags,
         "hashtags": hashtags,
         "stock_codes": stock_codes,
-        "stock_names": stock_names,
         "keywords": keywords,
     }
 
@@ -320,7 +297,7 @@ def build_latest_markdown(rows: list[dict[str, Any]], source_status: list[str]) 
 
     lines += ["", "## Current Cross-Account Themes", ""]
     if rows:
-        for key in ("cashtags", "hashtags", "stock_names", "keywords"):
+        for key in ("cashtags", "hashtags", "stock_codes", "keywords"):
             values = global_terms.get(key, [])
             lines.append(f"- {key}: {', '.join(values[:40]) if values else 'none detected'}")
         consensus = [kw for kw, count in keyword_counter.items() if count >= 2]
@@ -336,7 +313,7 @@ def build_latest_markdown(rows: list[dict[str, Any]], source_status: list[str]) 
         lines.append("")
         lines.append(f"- posts archived today: {len(handle_rows)}")
         lines.append(f"- keywords: {', '.join(terms['keywords'][:20]) if terms['keywords'] else 'none detected'}")
-        lines.append(f"- stock_names: {', '.join(terms['stock_names'][:20]) if terms['stock_names'] else 'none detected'}")
+        lines.append(f"- stock_codes: {', '.join(terms['stock_codes'][:20]) if terms['stock_codes'] else 'none detected'}")
         recent = handle_rows[:5]
         if recent:
             lines.append("- recent index:")
