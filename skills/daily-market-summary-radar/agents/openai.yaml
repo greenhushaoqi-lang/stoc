@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Market Summary Radar"
+  short_description: "Learn daily A-share summary notes."
+  default_prompt: "Use $daily-market-summary-radar to update local daily market summaries and map the latest themes, stocks, catalysts, and risks."
