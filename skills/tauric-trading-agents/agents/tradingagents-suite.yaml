@@ -1,0 +1,53 @@
+agents:
+  - id: market_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/analysts/market_analyst.py
+    role: Verify market data, trend, indicators, volume, and timing risk.
+  - id: sentiment_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/analysts/sentiment_analyst.py
+    role: Combine news framing, retail/social attention, divergence, and confidence.
+  - id: news_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/analysts/news_analyst.py
+    role: Track company, industry, macro, policy, and prediction-market catalysts.
+  - id: fundamentals_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/analysts/fundamentals_analyst.py
+    role: Review business quality, financial statements, valuation, and accounting risk.
+  - id: bull_researcher
+    source: TauricResearch/TradingAgents/tradingagents/agents/researchers/bull_researcher.py
+    role: Build the strongest evidence-backed positive thesis.
+  - id: bear_researcher
+    source: TauricResearch/TradingAgents/tradingagents/agents/researchers/bear_researcher.py
+    role: Build the strongest evidence-backed negative thesis.
+  - id: research_manager
+    source: TauricResearch/TradingAgents/tradingagents/agents/managers/research_manager.py
+    role: Reconcile bull and bear debate into a five-tier research stance.
+  - id: trader
+    source: TauricResearch/TradingAgents/tradingagents/agents/trader/trader.py
+    role: Convert the research plan into a hypothetical transaction proposal shape.
+  - id: aggressive_risk_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/risk_mgmt/aggressive_debator.py
+    role: Stress the upside and opportunity-cost case.
+  - id: neutral_risk_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/risk_mgmt/neutral_debator.py
+    role: Balance upside, downside, timing, and diversification.
+  - id: conservative_risk_analyst
+    source: TauricResearch/TradingAgents/tradingagents/agents/risk_mgmt/conservative_debator.py
+    role: Stress drawdown, gap, liquidity, valuation, and capital-preservation risks.
+  - id: portfolio_manager
+    source: TauricResearch/TradingAgents/tradingagents/agents/managers/portfolio_manager.py
+    role: Synthesize risk debate into final research priority and risk-adjusted label.
+  - id: trading_r1_reasoner
+    source: TauricResearch/Trading-R1 public README snapshot
+    role: Apply thesis completeness, grounding, counterfactual, and volatility-adjusted reasoning.
+
+rating_translation:
+  Buy: Strong Positive
+  Overweight: Positive
+  Hold: Neutral
+  Underweight: Negative
+  Sell: Strong Negative
+
+safety:
+  research_only: true
+  no_trade_execution: true
+  do_not_guarantee_returns: true
+  social_posts_are_weak_until_verified: true

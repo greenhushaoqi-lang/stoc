@@ -5,17 +5,32 @@ description: Use the TauricResearch TradingAgents and Trading-R1-inspired framew
 
 # Tauric Trading Agents
 
-Use this skill to structure public-market research with a TradingAgents-inspired analyst team and a Trading-R1-inspired reasoning discipline:
+Use this skill to structure public-market research with a TauricResearch TradingAgents-inspired analyst team and a Trading-R1-inspired reasoning discipline:
 
-`fundamental analyst -> sentiment analyst -> news analyst -> technical analyst -> smart-money monitor -> structured thesis -> evidence grounding -> volatility-adjusted synthesis`
+`market analyst -> sentiment analyst -> news analyst -> fundamentals analyst -> bull/bear researchers -> research manager -> trader -> aggressive/neutral/conservative risk debate -> portfolio manager -> Trading-R1 grounding pass`
 
-This is a reference workflow inspired by the public TauricResearch TradingAgents and Trading-R1 projects. Use public information only. Do not place trades, guarantee returns, or present the output as financial advice.
+This skill was updated from the public TauricResearch GitHub organization:
+
+- `TradingAgents` source snapshot: `c15200dc286b66abce3f1bcf09b298dc06b8539d`
+- `Trading-R1` source snapshot: `57810bfb4456ba1509a2a3c6d502d3085922bf83`
+
+Read `references/tauricresearch-source-map.md` and `references/tradingagents-agent-protocol.md` when the user asks for TauricResearch / TradingAgents / Trading-R1 style work. Use public information only. Do not place trades, guarantee returns, or present the output as financial advice.
 
 ## Core Rule
 
 Separate analyst evidence before giving the conclusion. Each analyst should make a concise, source-aware case, then the synthesis should reconcile disagreements and rank research priority.
 
 When the user asks what to buy or what has upside, answer with ranked research priorities and conditions. The trading decision stays with the user.
+
+TradingAgents adds a debate discipline:
+
+- **Market analyst** verifies price/volume and technical indicators before drawing timing conclusions.
+- **Sentiment analyst** separates news framing, StockTwits-style retail labels, and Reddit/forum attention; never fabricate missing social data.
+- **News analyst** combines company news, global/macro news, macro indicators, and prediction-market context.
+- **Fundamentals analyst** reviews company profile, financial statements, cash flow, balance sheet, valuation, and accounting risks.
+- **Bull/Bear researchers** debate the analyst reports before a research manager commits to `Buy / Overweight / Hold / Underweight / Sell`.
+- **Trader** converts the research plan into a transaction proposal shape, but in Codex usage this is only a research scenario, not an order.
+- **Risk analysts** debate aggressive, neutral, and conservative risk stances before a portfolio-manager-style final view.
 
 Trading-R1 adds three required disciplines:
 
@@ -29,11 +44,12 @@ Trading-R1 adds three required disciplines:
    - Identify ticker, market, sector, time horizon, and whether the user wants short-term catalysts, long-term thesis, or risk review.
    - Use live sources for current prices, filings, earnings, events, policy, market data, news, or "recent/current/latest" claims.
    - For US stocks or global AI/tech/chip names, read `references/smart-money-sources.md` and check political, congressional, ARK, and superinvestor tracking sources when relevant.
+   - For TauricResearch-specific framing, read `references/tradingagents-agent-protocol.md`.
 
-2. **Fundamental analyst**
-   - Inspect revenue growth, margin trend, cash flow, balance sheet, customer concentration, backlog/orders, capex, dilution, and valuation.
-   - Prefer filings, official announcements, exchange documents, investor presentations, and transcripts.
-   - Output: `business quality / growth driver / valuation pressure / accounting or financing risk`.
+2. **Market / technical analyst**
+   - Verify OHLCV, relative strength, trend state, turnover, volatility, support/resistance, and whether price action confirms or contradicts the thesis.
+   - Prefer deterministic market snapshots from market-data skills when exact levels matter.
+   - Output: `trend state / volume confirmation / warning zone / invalidation level`.
 
 3. **Sentiment analyst**
    - Inspect market attention, fund flows, analyst revisions, institutional positioning where available, social attention, and crowding.
@@ -41,34 +57,46 @@ Trading-R1 adds three required disciplines:
    - Output: `attention level / crowding / sentiment inflection / weak-rumor flags`.
 
 4. **News analyst**
-   - Inspect recent company announcements, policy, industry events, product launches, tenders/orders, export controls, earnings calendar, and customer/supplier news.
+   - Inspect recent company announcements, policy, industry events, product launches, tenders/orders, export controls, earnings calendar, customer/supplier news, macro data, and prediction-market context when relevant.
    - Separate confirmed events from interpretation.
    - Output: `confirmed catalyst / possible catalyst / event date or window / evidence strength`.
 
-5. **Technical analyst**
-   - Inspect trend, relative strength, volume/turnover, support/resistance, volatility, drawdown, and whether price action confirms or contradicts the fundamental story.
-   - Use technicals as timing and risk context, not as proof of business value.
-   - Output: `trend state / momentum / volume confirmation / invalidation level or warning zone`.
+5. **Fundamentals analyst**
+   - Inspect revenue growth, margin trend, cash flow, balance sheet, customer concentration, backlog/orders, capex, dilution, and valuation.
+   - Prefer filings, official announcements, exchange documents, investor presentations, and transcripts.
+   - Output: `business quality / growth driver / valuation pressure / accounting or financing risk`.
 
 6. **Cross-check**
    - Ask where the analysts disagree.
    - Downgrade the idea when fundamentals are weak but sentiment is hot, when news is unconfirmed, or when technicals show exhaustion after a large move.
    - Upgrade the idea when fundamentals, confirmed news, sentiment inflection, and technical confirmation point in the same direction.
 
-7. **Smart-money monitor**
+7. **Bull/Bear research debate**
+   - Bull researcher must argue growth potential, competitive advantage, and positive indicators using the analyst reports.
+   - Bear researcher must argue downside, competitive weakness, valuation/crowding, and negative indicators using the same evidence.
+   - Research manager reconciles the debate into a five-tier research plan: `Buy / Overweight / Hold / Underweight / Sell`.
+
+8. **Trader and risk debate**
+   - Trader converts the research plan into action shape: `Buy / Hold / Sell`, reasoning, optional entry/stop/sizing. Treat this as a research artifact only.
+   - Aggressive risk analyst challenges excessive caution and highlights upside.
+   - Conservative risk analyst protects against drawdown, valuation, liquidity, event gap, and overextension.
+   - Neutral risk analyst balances upside/downside and asks what evidence would change the view.
+   - Portfolio manager synthesizes into a five-tier position view. In user-facing reports, translate this into research priority, not an instruction.
+
+9. **Smart-money monitor**
    - For US-listed stocks, check whether the ticker appears in recent political trades, congressional disclosures, ARK/13F activity, or superinvestor portfolios.
    - Treat these as signal sources, not standalone proof. Confirm with SEC filings, official disclosures, or the original disclosure when possible.
    - Separate `new disclosure`, `stale 13F position`, `popular copy-trade signal`, and `confirmed fundamental thesis`.
    - Use `references/smart-money-sources.md` for source-specific rules, cadence, and caveats.
 
-8. **Trading-R1 reasoning pass**
+10. **Trading-R1 reasoning pass**
    - Convert the four analyst views into a structured thesis:
      `setup -> evidence -> mechanism -> expected path -> risk-adjusted payoff -> invalidation`.
    - Score the idea on both return potential and risk burden. Consider volatility, maximum drawdown risk, downside skew, liquidity, event gap risk, and crowded positioning.
    - Run a short counterfactual check: "What would I believe if price action were ignored?" and "What would I believe if the recent news did not exist?"
    - Prefer a cautious rating when the thesis needs several unverified events to happen in sequence.
 
-9. **Synthesis**
+11. **Synthesis**
    - Give a ranked research conclusion.
    - Explain the strongest reason, the biggest risk, and what would change the view.
    - Use labels: `Strong`, `Medium`, `Weak`, or `Needs checking` for evidence quality.
