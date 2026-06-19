@@ -1,0 +1,4 @@
+interface:
+  display_name: "Twelve X Market Radar"
+  short_description: "Daily learning radar for twelve Chinese market and macro X accounts."
+  default_prompt: "Use $twelve-x-market-radar to update the twelve tracked X accounts and map their latest narratives to stocks, sectors, catalysts, and overseas market signals."
