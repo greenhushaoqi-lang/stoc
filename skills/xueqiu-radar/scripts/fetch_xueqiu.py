@@ -46,10 +46,13 @@ def fetch_user(op, uid, count=10):
     # 用户时间线(最近帖)
     posts = []
     try:
-        raw = op.open(f"https://xueqiu.com/v4/statuses/user_timeline.json?user_id={uid}&page=1", timeout=12).read().decode("utf-8", "ignore")
+        raw = op.open(f"https://xueqiu.com/statuses/user_timeline.json?user_id={uid}&page=1", timeout=12).read().decode("utf-8", "ignore")
         d = json.loads(raw)
         import re
-        for st in (d.get("statuses") or [])[:count]:
+        sts = d.get("statuses") or []
+        if sts and isinstance(sts[0].get("user"), dict):
+            name = sts[0]["user"].get("screen_name") or name  # 从时间线直接取昵称(更稳)
+        for st in sts[:count]:
             t = st.get("text") or st.get("description") or ""
             t = re.sub(r"<[^>]+>", "", t)
             t = re.sub(r"\s+", " ", t).strip()
