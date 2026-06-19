@@ -73,7 +73,7 @@ def now_utc() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
 
 
-def http_get(url: str, headers: dict[str, str] | None = None, timeout: int = 20) -> bytes:
+def http_get(url: str, headers: dict[str, str] | None = None, timeout: int = 12) -> bytes:
     req = urllib.request.Request(
         url,
         headers={
@@ -185,10 +185,10 @@ def fetch_x_api_handle(handle: str, limit: int) -> tuple[list[dict[str, Any]], s
 
 def fetch_rss_handle(handle: str, limit: int) -> tuple[list[dict[str, Any]], list[str]]:
     urls = [
-        f"https://rsshub.app/twitter/user/{handle}",
         f"https://nitter.net/{handle}/rss",
         f"https://xcancel.com/{handle}/rss",
         f"https://nitter.poast.org/{handle}/rss",
+        f"https://rsshub.app/twitter/user/{handle}",
     ]
     errors: list[str] = []
     for url in urls:
