@@ -13,15 +13,21 @@ UIDS = [  # (uid, 备注名-待cookie解析后回填)
     ("5124430882", ""), ("5672579962", ""), ("1034624503", ""),
     ("4086512744", ""), ("7251377368", ""), ("1301600236", ""), ("4168622038", ""),
 ]
-COOKIE_FILE = os.path.join(os.path.expanduser("~"), ".xueqiu_cookie.txt")
+# 按优先级查找 cookie:环境变量 → 桌面Glozin普通文件(易创建) → home隐藏文件
+COOKIE_PATHS = [
+    os.path.join(os.path.expanduser("~"), "Desktop", "Glozin", "xueqiu_cookie.txt"),
+    os.path.join(os.path.expanduser("~"), "xueqiu_cookie.txt"),
+    os.path.join(os.path.expanduser("~"), ".xueqiu_cookie.txt"),
+]
 
 
 def load_cookie():
     c = os.getenv("XUEQIU_COOKIE")
     if c:
         return c.strip()
-    if os.path.isfile(COOKIE_FILE):
-        return open(COOKIE_FILE, encoding="utf-8").read().strip()
+    for p in COOKIE_PATHS:
+        if os.path.isfile(p):
+            return open(p, encoding="utf-8").read().strip()
     return None
 
 
