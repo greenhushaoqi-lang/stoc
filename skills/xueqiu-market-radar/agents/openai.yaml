@@ -1,0 +1,4 @@
+interface:
+  display_name: "Xueqiu Market Radar"
+  short_description: "Daily learning radar for tracked Xueqiu finance accounts."
+  default_prompt: "Use $xueqiu-market-radar to update tracked Xueqiu accounts and map their latest narratives to stocks, sectors, catalysts, and risk signals."
