@@ -1,0 +1,4 @@
+interface:
+  display_name: "Taoguba Market Radar"
+  short_description: "Daily learning radar for tracked Taoguba finance blogs."
+  default_prompt: "Use $taoguba-market-radar to update tracked Taoguba blog accounts and map their latest narratives to stocks, sectors, catalysts, and risk signals."
