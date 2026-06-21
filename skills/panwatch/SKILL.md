@@ -105,3 +105,37 @@ docker run -d --name panwatch -p 8000:8000 \
 ## 免责声明
 
 方法论与数据均供参考，不构成投资建议。实盘决策自行判断、自负风险。
+
+## 全量源码与 Agent 安装
+
+本 skill 现已 vendored `TNT-Likely/PanWatch` 上游完整项目源码，可在当前目录直接查看和运行：
+
+- `src/agents/base.py`：Agent 抽象基类、上下文、通知去重、组合持仓数据结构。
+- `src/agents/premarket_outlook.py`：盘前展望 Agent。
+- `src/agents/intraday_monitor.py`：盘中监控 Agent。
+- `src/agents/daily_report.py`：盘后日报 Agent。
+- `src/agents/news_digest.py`：新闻速递 Agent。
+- `src/agents/chart_analyst.py`：K 线图分析 Agent。
+- `src/agents/tradingagents/agent.py`：TradingAgents 深度多 Agent 投研桥接。
+- `src/agents/tradingagents/`：成本追踪、进度回调、结果映射、A/HK/US 数据路由、组合上下文注入等配套模块。
+- `prompts/*.txt`：上游原始提示词模板。
+- `server.py`：FastAPI 入口、Agent 注册、调度和数据源挂载。
+- `frontend/`、`src/web/`、`src/core/`、`src/collectors/`、`tests/`：完整前后端、核心服务、采集器与测试。
+
+本地运行上游应用：
+
+```bash
+cd skills/panwatch
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python server.py
+```
+
+前端开发：
+
+```bash
+cd skills/panwatch/frontend
+pnpm install
+pnpm dev
+```

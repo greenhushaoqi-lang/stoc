@@ -1,0 +1,32 @@
+apprise>=1.6.0
+openai>=1.0.0
+efinance>=0.4.0
+akshare>=1.10.0
+apscheduler>=3.10.0
+httpx>=0.25.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+pyyaml>=6.0
+certifi
+pytest>=7.0.0
+tenacity>=8.2.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+sqlalchemy>=2.0.0
+playwright==1.57.0
+PyJWT>=2.8.0
+# 详情报告导出 PDF(后台直出,不依赖 Chromium):
+# 主引擎 WeasyPrint(HTML 保真排版,需系统库 pango/cairo + 中文字体,如 Docker 加 fonts-noto-cjk);
+# WeasyPrint 不可用时回退 xhtml2pdf(纯库保底,中文用 reportlab STSong-Light)。
+weasyprint>=60
+xhtml2pdf>=0.2.17
+
+# 深度分析 — TradingAgents (多 Agent 投资决策框架, 76k star)。
+# 不在 PyPI,用 git+ URL 安装。会拉 langchain/langgraph/yfinance 等较重依赖
+# (~115 个包,首次安装 2-5 分钟)。
+# 用户启用「TradingAgents 深度分析」Agent 时才会真正调用它;不启用零开销。
+# 锁定到 v0.2.5(而非 @main):上游 main 不断加需外部 key/服务的新工具
+# (get_verified_market_snapshot→yfinance、get_macro_indicators→FRED、polymarket 等),
+# 我们的注入层未覆盖就会硬失败。v0.2.5 是 PanWatch 适配/测试的稳定版,不含这些工具。
+# 升级前需先在适配层(toolkit_adapter)对新工具做覆盖/降级。
+tradingagents @ git+https://github.com/TauricResearch/TradingAgents.git@v0.2.5

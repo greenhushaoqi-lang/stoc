@@ -1,0 +1,30 @@
+name: panwatch
+description: PanWatch stock monitoring and TradingAgents deep research agents.
+entrypoints:
+  - name: premarket_outlook
+    path: src/agents/premarket_outlook.py
+    description: Pre-market outlook and opening strategy.
+  - name: intraday_monitor
+    path: src/agents/intraday_monitor.py
+    description: Real-time market and portfolio anomaly monitoring.
+  - name: daily_report
+    path: src/agents/daily_report.py
+    description: Post-market recap and next-day action planning.
+  - name: news_digest
+    path: src/agents/news_digest.py
+    description: Watchlist and portfolio-aware financial news digest.
+  - name: chart_analyst
+    path: src/agents/chart_analyst.py
+    description: Technical chart and kline signal analysis.
+  - name: tradingagents
+    path: src/agents/tradingagents/agent.py
+    description: Multi-agent deep investment research via TradingAgents.
+prompts:
+  - prompts/premarket_outlook.txt
+  - prompts/intraday_monitor.txt
+  - prompts/daily_report.txt
+  - prompts/news_digest.txt
+  - prompts/chart_analyst.txt
+upstream:
+  repository: https://github.com/TNT-Likely/PanWatch
+  installed_from: https://github.com/TNT-Likely/PanWatch
