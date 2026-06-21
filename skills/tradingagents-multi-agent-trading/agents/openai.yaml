@@ -1,0 +1,4 @@
+interface:
+  display_name: "TradingAgents Multi-Agent Trading"
+  short_description: "Run TradingAgents-style analyst, debate, trader, risk, and portfolio decision workflows"
+  default_prompt: "Use $tradingagents-multi-agent-trading to analyze this ticker with market, sentiment/news, fundamentals, bull/bear debate, trader proposal, risk debate, and final portfolio decision."
