@@ -1,0 +1,109 @@
+agents:
+  - id: query_normalizer
+    source: zhangxiangliang/stock-api docs/api.md and src/stocks/shared/code-mapper.ts
+    role: Normalize user intent into unified stock-api codes, provider choice, and operation type.
+    inputs:
+      - user request
+      - optional market prefix
+      - optional provider
+    outputs:
+      - operation: quote | batch_quote | kline | search | inspect
+      - codes
+      - source
+
+  - id: provider_inspector
+    source: zhangxiangliang/stock-api src/stocks/auto/index.ts and src/mcp/server.ts
+    role: Inspect Tencent, Sina, and Eastmoney availability and explain fallback provenance.
+    preferred_tool: inspect_stock
+    outputs:
+      - selected_source
+      - provider_statuses
+      - fallback_warning
+
+  - id: quote_analyst
+    source: zhangxiangliang/stock-api get_stock and get_stocks MCP tools
+    role: Fetch normalized quote fields and summarize current quote state without investment advice.
+    preferred_tools:
+      - get_stock
+      - get_stocks
+    outputs:
+      - code
+      - name
+      - now
+      - percent
+      - low
+      - high
+      - yesterday
+      - source
+
+  - id: kline_analyst
+    source: zhangxiangliang/stock-api get_klines MCP tool
+    role: Fetch day, week, or month K-line rows and summarize chart-ready data coverage.
+    preferred_tool: get_klines
+    defaults:
+      period: day
+      count: 120
+      adjust: none
+    outputs:
+      - code
+      - period
+      - row_count
+      - first_date
+      - last_date
+      - source
+
+  - id: search_analyst
+    source: zhangxiangliang/stock-api search_stocks MCP tool
+    role: Search candidate stock symbols by company name or keyword.
+    preferred_tool: search_stocks
+    outputs:
+      - candidates
+      - ambiguity_notes
+
+  - id: reliability_guard
+    source: zhangxiangliang/stock-api docs/api.md and docs/architecture.md
+    role: Flag base fallback, empty provider responses, rate-limit needs, stale data risk, and third-party data-source caveats.
+    outputs:
+      - confidence
+      - caveats
+      - recommended_cross_checks
+
+provider_order:
+  auto:
+    - tencent
+    - sina
+    - eastmoney
+
+sources:
+  allowed:
+    - auto
+    - tencent
+    - sina
+    - eastmoney
+
+stock_code_format:
+  shanghai: SH510500
+  shenzhen: SZ000651
+  hong_kong: HK02020
+  us_style: USDJI
+
+tools:
+  mcp:
+    command: npx
+    args:
+      - -y
+      - stock-api
+      - mcp
+    names:
+      - get_stock
+      - get_stocks
+      - get_klines
+      - search_stocks
+      - inspect_stock
+
+safety:
+  research_only: true
+  no_trade_execution: true
+  no_return_guarantees: true
+  cross_check_high_stakes_data: true
+  warn_on_base_fallback: true
